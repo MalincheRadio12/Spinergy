@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APARTA TU LUGAR</title>
+  <link rel="manifest" href="./manifest.json">
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="./assets/images/carril-bici.png" type="image/svg+xml">
+
+  <!-- custom css link -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- google font link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap"
+    rel="stylesheet">
+
+  <!-- preload images -->
+  <link rel="preload" as="image" href="./assets/images/hero-banner.png">
+  <link rel="preload" as="image" href="./assets/images/hero-circle-one.png">
+  <link rel="preload" as="image" href="./assets/images/hero-circle-two.png">
+  <link rel="preload" as="image" href="./assets/images/heart-rate.svg">
+  <link rel="preload" as="image" href="./assets/images/calories.svg">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+</head>
+
+<body id="top">
+
+  <!-- HEADER -->
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="./assets/images/logo.jpeg" width="90" height="45" loading="lazy" alt="Instructor" style="border-radius: 10px;">
+      </a>
+
+      <nav class="navbar" data-navbar>
+        <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+          <ion-icon name="close-sharp" aria-hidden="true"></ion-icon>
+        </button>
+
+        <ul class="navbar-list">
+          <li>
+            <a href="index.html" class="navbar-link active" data-nav-link>Inicio</a>
+          </li>
+          <li>
+            <a href="#footer" class="navbar-link" data-nav-link>Contacto</a>
+          </li>
+        </ul>
+      </nav>
+
+      <a href="#reserva" class="btn btn-secondary">Únete Ahora</a>
+
+      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <article>
+     
+
+
+      <section class="section class bg-dark has-bg-image" id="reserva" aria-label="reserva"
+  style="background-image: url('./assets/images/classes-bg.png')">
+  <div class="container">
+    <p class="section-subtitle text-center">.</p>
+
+    <h2 class="h2 section-title text-center">Reserva tu bicicleta</h2>
+
+    <form id="reservaForm" class="reserva-form">
+      <div class="form-group">
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" required placeholder="Ej. Daniela Hernández">
+      </div>
+
+      <div class="form-group">
+        <label for="fecha">Selecciona la fecha:</label>
+        <input type="date" id="fecha" required>
+      </div>
+
+      <div class="form-group">
+        <label>Selecciona horario:</label>
+        <div class="horarios">
+          <button type="button" class="btn-horario" data-hora="06:00am">06:00 am</button>
+          <button type="button" class="btn-horario" data-hora="08:00am">08:00 am</button>
+          <button type="button" class="btn-horario" data-hora="07:00pm">07:00 pm</button>
+          <button type="button" class="btn-horario" data-hora="09:30am">Sábado 09:30 am</button>
+        </div>
+        <input type="hidden" id="hora" name="hora" required>
+      </div>
+
+      <div class="form-group">
+        <label>Selecciona tu bicicleta:</label>
+        <div id="bicicletas" class="grid-bicicletas"></div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Apartar Bicicleta</button>
+    </form>
+
+    <div id="mensaje" class="mensaje-estado text-center"></div>
+
+    <!-- Comprobante invisible para generar boleto -->
+    <div id="comprobante" style="display:none; background: white; color: black; padding: 20px; border-radius: 10px; max-width: 300px; text-align: center; font-family: 'Rubik', sans-serif;">
+      <h2 style="color: #e63946;">🎫 Spinergy</h2>
+      <p id="c-nombre"></p>
+      <p id="c-bicicleta"></p>
+      <p id="c-fecha"></p>
+      <p id="c-hora"></p>
+    </div>
+  </div>
+</section>
+
+    </article>
+  </main>
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer"  id="footer">
+    <div class="section footer-top bg-dark has-bg-image" style="background-image: url('./assets/images/footer-bg.png')">
+      <div class="container">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <ion-icon name="bicycle-sharp" aria-hidden="true"></ion-icon>
+            <span class="span">Spinergy</span>
+          </a>
+          <p class="footer-brand-text">
+            Estudio de spin donde el ejercicio se convierte en diversión al ritmo de la música.
+          </p>
+          <div class="wrapper">
+            <img src="./assets/images/footer-clock.png" width="34" height="34" loading="lazy" alt="Reloj">
+            <ul class="footer-brand-list">
+              <li>
+                <p class="footer-brand-title">Lunes a Viernes</p>
+                <p>6:00am | 8:00am | 7:00pm</p>
+              </li>
+              <li>
+                <p class="footer-brand-title">Sábado</p>
+                <p>9:30am</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title has-before">Enlaces</p>
+          </li>
+          <li>
+            <a href="#home" class="footer-link">Inicio</a>
+          </li>
+          <li>
+            <a href="#about" class="footer-link">Nosotros</a>
+          </li>
+          <li>
+            <a href="#footer" class="footer-link">Contacto</a>
+          </li>
+        </ul>
+
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title has-before">Contacto</p>
+          </li>
+          <li class="footer-list-item">
+            <div class="icon">
+              <ion-icon name="location" aria-hidden="true"></ion-icon>
+            </div>
+            <address class="address footer-link">
+              Piñones #303, Santa Rosa, Apizaco, Tlax. 90340
+              <br>
+              <a href="https://maps.app.goo.gl/RgkqKfPaTo5zdNSu9?g_st=ac" target="_blank" class="footer-link">Ver en Google Maps</a>
+            </address>
+          </li>
+          <li class="footer-list-item">
+            <div class="icon">
+              <ion-icon name="call" aria-hidden="true"></ion-icon>
+            </div>
+            <div>
+              <a href="tel:+5212411234567" class="footer-link">+52 241 123 4567</a>
+            </div>
+          </li>
+        </ul>
+
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title has-before">Síguenos</p>
+          </li>
+          <li>
+            <ul class="social-list">
+              <li>
+                <a href="https://www.facebook.com/share/1W8odRQNn5/" target="_blank" class="social-link">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/_spinergy_?igsh=MnMwY3Y3c25zcWl5" target="_blank" class="social-link">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div class="wrapper">
+              <div class="about-coach">
+                <figure class="coach-avatar">
+                  <img src="./assets/images/zorb.png" width="65" height="65" loading="lazy" alt="Instructor">
+                </figure>
+                <div>
+                  <a href="https://wa.me/5212411179924" target="_blank" class="btn btn-primary">®Zorb fm</a>
+                  </div>
+          </div>
+            
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">
+          ®Zorb FM - Productora de Medios Digitales - Spinergy. Todos los derechos reservados.
+        </p>
+        <ul class="footer-bottom-list">
+          <li>
+            <a href="#" class="footer-bottom-link has-before">Política de Privacidad</a>
+          </li>
+          <li>
+            <a href="#" class="footer-bottom-link has-before">Términos y Condiciones</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
+  </a>
+
+  <!-- custom js link -->
+  <script src="./assets/js/script.js" defer></script>
+  <script src="./script.js"></script>
+
+  <!-- ionicon link -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    const firebaseConfig = {
+  apiKey: "AIzaSyBwvzm9sMuUA60M712aYAUUBPzokUEtm2o",
+  authDomain: "spinergy-reservas.firebaseapp.com",
+  projectId: "spinergy-reservas",
+  storageBucket: "spinergy-reservas.firebasestorage.app",
+  messagingSenderId: "596504452641",
+  appId: "1:596504452641:web:e5298dd2296be6156c8d60",
+  measurementId: "G-WRHZ15BCKN"
+};
+  
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+
+<script>
+  const video = document.getElementById('spinergyVideo');
+  const toggleBtn = document.getElementById('toggleVideoBtn');
+  const iconSpan = document.getElementById('videoIcon');
+
+  let isPlaying = false;
+
+  toggleBtn.addEventListener('click', () => {
+    if (!isPlaying) {
+      video.muted = false;
+      video.style.display = 'block';
+      video.play();
+      iconSpan.innerHTML = '<ion-icon name="pause-sharp"></ion-icon>';
+      isPlaying = true;
+    } else {
+      video.pause();
+      iconSpan.innerHTML = '<ion-icon name="play-sharp"></ion-icon>';
+      isPlaying = false;
+    }
+  });
+</script>
+
+
+</body>
+</html>

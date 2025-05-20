@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spinergy</title>
+  <link rel="manifest" href="./manifest.json">
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="./assets/images/carril-bici.png">
+
+  <!-- custom css link -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- google font link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap"
+    rel="stylesheet">
+
+  <!-- preload images -->
+  <link rel="preload" as="image" href="./assets/images/hero-banner.png">
+  <link rel="preload" as="image" href="./assets/images/hero-circle-one.png">
+  <link rel="preload" as="image" href="./assets/images/hero-circle-two.png">
+  <link rel="preload" as="image" href="./assets/images/heart-rate.svg">
+  <link rel="preload" as="image" href="./assets/images/calories.png">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  
+
+
+</head>
+
+<body id="top">
+
+  <!-- HEADER -->
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="./assets/images/logo.jpeg" width="90" height="45" loading="lazy" alt="Instructor" style="border-radius: 10px;">
+      </a>
+
+      <nav class="navbar" data-navbar>
+        <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+          <ion-icon name="close-sharp" aria-hidden="true"></ion-icon>
+        </button>
+
+        <ul class="navbar-list">
+          <li>
+            <a href="#home" class="navbar-link active" data-nav-link>Inicio</a>
+          </li>
+          <li>
+            <a href="#about" class="navbar-link" data-nav-link>Nosotros</a>
+          </li>
+          <li>
+            <a href="#horarios" class="navbar-link" data-nav-link>Horarios</a>
+          </li>
+          <li>
+            <a href="#contacto" class="navbar-link" data-nav-link>Contacto</a>
+          </li>
+        </ul>
+      </nav>
+
+      <a href="https://wa.me/5212411128862" class="btn btn-secondary">Únete Ahora</a>
+
+      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <!-- HERO SECTION -->
+      <section class="section hero bg-dark has-after has-bg-image" id="home" aria-label="hero" data-section
+        style="background-image: url('./assets/images/hero-bg.png')">
+        <div class="container">
+          <div class="hero-content">
+            <p class="hero-subtitle">
+              <strong class="strong">Estudio</strong>de spin
+            </p>
+            <h1 class="h1 hero-title">We ride to the beat</h1>
+            <p class="section-text">
+              Obten resultados con nuestro exclusivo estilo California.
+              Quema calorías, tonifica tu cuerpo y baila sobre tu bici al ritmo de la musica.
+            </p>
+            <a href="https://maps.app.goo.gl/m83BTi1HgRmbYisZ6" class="btn btn-primary">“Visítanos”</a>
+          </div>
+
+          <div class="hero-banner">
+            <img src="./assets/images/hero-banner.png" width="660" height="753" alt="Clase de Spinergy" class="w-100">
+            <img src="./assets/images/hero-circle-one.png" width="666" height="666" aria-hidden="true" alt=""
+              class="circle circle-1">
+            <img src="./assets/images/hero-circle-two.png" width="666" height="666" aria-hidden="true" alt=""
+              class="circle circle-2">
+            <img src="./assets/images/heart-rate.svg" width="255" height="270" alt="Ritmo cardíaco"
+              class="abs-img abs-img-1">
+            <img src="./assets/images/calories.png" width="348" height="224" alt="Calorías" class="abs-img abs-img-2">
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section class="section about" id="about" aria-label="about" style="background-color: #828282;">
+        <div class="container">
+          <div class="about-banner has-after">
+            <img src="./assets/images/about-banner.png" width="660" height="648" loading="lazy" alt="Clase de Spinergy"
+              class="w-100">
+            <img src="./assets/images/about-circle-one.png" width="660" height="534" loading="lazy" aria-hidden="true"
+              alt="" class="circle circle-1">
+            <img src="./assets/images/about-circle-two.png" width="660" height="534" loading="lazy" aria-hidden="true"
+              alt="" class="circle circle-2">
+            <img src="./assets/images/fitness.png" width="650" height="154" loading="lazy" alt="Spinergy"
+              class="abs-img w-100">
+          </div>
+
+          <div class="about-content">
+            <p class="section-subtitle" >Nosotros</p>
+            <h2 class="h2 section-title">Bienvenido a Spinergy</h2>
+            <p class="section-text" style="color: black;">
+              Spinergy es un estudio de spin, donde el ejercicio se convierte en diversión. Nuestro exclusivo California style esta diseñado para trabajar todo el cuerpo, piernas, glúteos, espalda, brazos y abdomen. 
+            </p>
+            <p class="section-text" style="color: black;">
+              Cada sesión es una fiesta sobre ruedas donde juntos buscamos tu mejor versión.
+            </p>
+
+            <div class="wrapper">
+              <div class="about-coach">
+                <figure class="coach-avatar">
+                  <img src="./assets/images/about-coach.jpg" width="65" height="65" loading="lazy" alt="Instructor">
+                </figure>
+                <div>
+                  <h3 class="h3 coach-name">WhatsApp</h3>
+                  <p class="coach-title" style="color: black;" >+52 241 112 8862</p>
+                  </div>
+                  </div>
+                  <a href="https://wa.me/5212411128862" target="_blank" class="btn btn-primary">Chatea con Nosotros</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIDEO SECTION -->
+      <section class="section video" aria-label="video" style="background-color: #828282;">
+        <div class="container">
+          <div class="video-card has-before has-bg-image"
+            style="background-image: url('./assets/images/video.jpeg')">
+      
+            <button class="play-btn" id="toggleVideoBtn" aria-label="toggle video">
+              <span id="videoIcon">
+                <ion-icon name="play-sharp" aria-hidden="true"></ion-icon>
+              </span>
+            </button>
+            
+            <!-- Video que aparece sobre la imagen -->
+            <video
+              id="spinergyVideo"
+              loop
+              style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+              <source src="./assets/spinergy-video.mp4" type="video/mp4">
+              Tu navegador no soporta el video.
+            </video>
+      
+          </div>
+        </div>
+      </section>
+      
+     <!-- EXPERIENCIA DESTACADA / PUBLICIDAD -->
+<section class="section class bg-dark has-bg-image" id="class" aria-label="promocion"
+style="background-image: url('.assets/images/classes-bg.jpeg')">
+<div class="container text-center">
+  <p class="section-subtitle">¡Vive la Experiencia!</p>
+  <h2 class="h2 section-title text-center">Spinergy hacemos tu experiencia fitness inolvidable</h2>
+
+  <div style="max-width: 600px; margin: 0 auto;">
+    <div class="carousel" style="border-radius: 16px; overflow: hidden; margin-bottom: 30px;">
+      <div class="carousel-track">
+        <img src="./assets/images/2.png" alt="Imagen 1">
+        <img src="./assets/images/3.png" alt="Imagen 2">
+        <img src="./assets/images/4.png" alt="Imagen 3">
+        <img src="./assets/images/5.png" alt="Imagen 4">
+        <img src="./assets/images/6.png" alt="Imagen 5">
+        <img src="./assets/images/6.png" alt="Imagen 6">
+      </div>
+    </div>
+    
+
+    <p class="section-text" style="font-size: 1.8rem; color: #ccc;">
+      Luces, música y energía. Ven a nuestras sesiones de spin California style y transforma tu vida.
+    </p>
+
+    <p class="section-text" style="font-size: 1.6rem; color: var(--coquelicot); font-weight: bold; margin-top: 15px;">
+      🚴‍♀️ ¡Cupo limitado cada semana!
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- SECCIÓN HORARIOS -->
+<section class="section horarios bg-dark has-bg-image" id="horarios" aria-label="horarios"
+  style="background-image: url('./assets/images/classes-bg.png'); padding-top: 40px; padding-bottom: 40px;">
+  <div class="container text-center">
+    <div class="titulo-horarios">
+      <p class="section-subtitle text-center">Horarios Disponibles</p>
+      <h2 class="h2 section-title text-center">Ven a encontrar la mejor versión de ti.</h2>
+      <p class="section-text text-center">Elige el horario que se adapte a tu ritmo de vida. ¡Tenemos clases energéticas toda la semana!</p>
+    </div>
+
+    <div class="horarios-grid">
+      <div class="horario-card">
+        <ion-icon name="calendar-clear-outline" class="horario-icon"></ion-icon>
+        <h3 class="h3">Lunes a Viernes</h3>
+        <ul class="horario-list">
+          <li><ion-icon name="time-outline"></ion-icon> 6:00 AM</li>
+          <li><ion-icon name="time-outline"></ion-icon> 8:00 AM</li>
+          <li><ion-icon name="time-outline"></ion-icon> 7:00 PM</li>
+        </ul>
+      </div>
+
+      <div class="horario-card">
+        <ion-icon name="calendar-outline" class="horario-icon"></ion-icon>
+        <h3 class="h3">Sábado</h3>
+        <ul class="horario-list">
+          <li><ion-icon name="time-outline"></ion-icon> 9:30 AM</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section class bg-dark has-bg-image" id="contacto" aria-label="contacto"
+  style="background-image: url('./assets/images/classes-bg.png')">
+  <div class="container">
+    <p class="section-subtitle text-center">Contáctanos</p>
+    <h2 class="h2 section-title text-center">¿Tienes dudas o quieres más información?</h2>
+
+    <form id="formContacto" class="contacto-form" onsubmit="enviarWhatsApp(); return false;">
+      <div class="form-group">
+        <label for="nombreContacto">Nombre completo</label>
+        <input type="text" id="nombreContacto" required placeholder="Ej. Mariana López">
+      </div>
+
+      <div class="form-group">
+        <label for="telefonoContacto">Teléfono</label>
+        <input type="tel" id="telefonoContacto" required placeholder="Ej. 2411234567">
+      </div>
+
+      <div class="form-group">
+        <label for="mensajeContacto">Mensaje</label>
+        <textarea id="mensajeContacto" rows="4" required placeholder="Escribe tu duda o comentario..."></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Enviar por WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+    </article>
+  </main>
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer"  id="footer">
+    <div class="section footer-top bg-dark has-bg-image" style="background-image: url('./assets/images/footer-bg.png')">
+      <div class="container">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <ion-icon name="bicycle-sharp" aria-hidden="true"></ion-icon>
+            <span class="span">Spinergy</span>
+          </a>
+          <p class="footer-brand-text">
+            Estudio de spin donde el ejercicio se convierte en diversión al ritmo de la música.
+          </p>
+          <div class="wrapper">
+            <img src="./assets/images/footer-clock.png" width="34" height="34" loading="lazy" alt="Reloj">
+            <ul class="footer-brand-list">
+              <li>
+                <p class="footer-brand-title">Lunes a Viernes</p>
+                <p>6:00am | 8:00am | 7:00pm</p>
+              </li>
+              <li>
+                <p class="footer-brand-title">Sábado</p>
+                <p>9:30am</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title has-before">Enlaces</p>
+          </li>
+          <li>
+            <a href="#home" class="footer-link">Inicio</a>
+          </li>
+          <li>
+            <a href="#about" class="footer-link">Nosotros</a>
+          </li>
+          <li>
+            <a href="#footer" class="footer-link">Contacto</a>
+          </li>
+        </ul>
+
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title has-before">Contacto</p>
+          </li>
+          <li class="footer-list-item">
+            <div class="icon">
+              <ion-icon name="location" aria-hidden="true"></ion-icon>
+            </div>
+            <address class="address footer-link">
+              Piñones #303, Santa Rosa, Apizaco, Tlax. 90340
+              <br>
+              <a href="https://maps.app.goo.gl/RgkqKfPaTo5zdNSu9?g_st=ac" target="_blank" class="footer-link">Ver en Google Maps</a>
+            </address>
+          </li>
+          <li class="footer-list-item">
+            <div class="icon">
+              <ion-icon name="call" aria-hidden="true"></ion-icon>
+            </div>
+            <div>
+              <a href="tel:+5212411234567" class="footer-link">+52 241 123 4567</a>
+            </div>
+          </li>
+          
+        </ul>
+
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title has-before">Síguenos</p>
+          </li>
+          <li>
+            <ul class="social-list">
+              <li>
+                <a href="https://www.facebook.com/share/1W8odRQNn5/" target="_blank" class="social-link">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/_spinergy_?igsh=MnMwY3Y3c25zcWl5" target="_blank" class="social-link">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div class="wrapper">
+              <div class="about-coach">
+                <figure class="coach-avatar">
+                  <img src="./assets/images/zorb.png" width="65" height="65" loading="lazy" alt="Instructor">
+                </figure>
+                <div>
+                  <a href="https://wa.me/5212411179924" target="_blank" class="btn btn-primary">®Zorb fm</a>
+                  </div>
+          </div>
+            
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">
+          ®Zorb FM - Productora de Medios Digitales - Spinergy. Todos los derechos reservados.
+        </p>
+        <ul class="footer-bottom-list">
+          <li>
+            <a href="#" class="footer-bottom-link has-before">Política de Privacidad</a>
+          </li>
+          <li>
+            <a href="#" class="footer-bottom-link has-before">Términos y Condiciones</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
+  </a>
+
+  <!-- custom js link -->
+  <script src="./assets/js/script.js" defer></script>
+  <script src="./script.js"></script>
+
+<script>
+  function enviarWhatsApp() {
+    const nombre = document.getElementById("nombreContacto").value.trim();
+    const telefono = document.getElementById("telefonoContacto").value.trim();
+    const mensaje = document.getElementById("mensajeContacto").value.trim();
+
+    if (!nombre || !telefono || !mensaje) {
+      alert("Por favor completa todos los campos.");
+      return;
+    }
+
+    const numeroDestino = "2411128862";
+    const texto = `Hola, soy ${nombre}.\nMi número es: ${telefono}.\nMensaje: ${mensaje}`;
+    const url = `https://wa.me/52${numeroDestino}?text=${encodeURIComponent(texto)}`;
+
+    window.open(url, "_blank");
+  }
+</script>
+
+
+<script>
+  const video = document.getElementById('spinergyVideo');
+  const toggleBtn = document.getElementById('toggleVideoBtn');
+  const iconSpan = document.getElementById('videoIcon');
+
+  let isPlaying = false;
+
+  toggleBtn.addEventListener('click', () => {
+    if (!isPlaying) {
+      video.muted = false;
+      video.style.display = 'block';
+      video.play();
+      iconSpan.innerHTML = '<ion-icon name="pause-sharp"></ion-icon>';
+      isPlaying = true;
+    } else {
+      video.pause();
+      iconSpan.innerHTML = '<ion-icon name="play-sharp"></ion-icon>';
+      isPlaying = false;
+    }
+  });
+</script>
+
+
+</body>
+</html>

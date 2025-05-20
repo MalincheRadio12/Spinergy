@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <link rel="shortcut icon" href="./assets/images/carril-bici.png">
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: 'Rubik', sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      color: var(--coquelicot);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #444;
+      text-align: center;
+    }
+
+    th {
+      background-color: var(--coquelicot);
+      color: white;
+    }
+
+    button {
+      padding: 8px 14px;
+      background: crimson;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .filter {
+      margin-bottom: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .filter input {
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      margin: 0 10px;
+      color: white;
+    }
+
+    .delete-old {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Administración de Reservas Spinergy</h1>
+
+  <div class="filter">
+    <label>Filtrar por fecha:</label>
+    <input type="date" id="filtroFecha">
+    <button onclick="cargarReservas()">Buscar</button>
+  </div>
+
+  <table id="tablaReservas">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Bicicleta</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="delete-old">
+    <button onclick="eliminarAntiguas()">Eliminar Reservas Anteriores a Hoy</button>
+  </div>
+  <script src="./script.js"></script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+  apiKey: "AIzaSyBwvzm9sMuUA60M712aYAUUBPzokUEtm2o",
+  authDomain: "spinergy-reservas.firebaseapp.com",
+  projectId: "spinergy-reservas",
+  storageBucket: "spinergy-reservas.firebasestorage.app",
+  messagingSenderId: "596504452641",
+  appId: "1:596504452641:web:e5298dd2296be6156c8d60",
+  measurementId: "G-WRHZ15BCKN"
+};
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    async function cargarReservas() {
+      const fechaFiltro = document.getElementById("filtroFecha").value;
+      let query = db.collection("reservas");
+      if (fechaFiltro) query = query.where("fecha", "==", fechaFiltro);
+
+      const snapshot = await query.get();
+      const tbody = document.querySelector("#tablaReservas tbody");
+      tbody.innerHTML = "";
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${data.nombre}</td>
+          <td>${data.fecha}</td>
+          <td>${data.hora}</td>
+          <td>#${data.bicicleta}</td>
+          <td><button onclick="eliminarReserva('${doc.id}')">Eliminar</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    async function eliminarReserva(id) {
+      if (confirm("¿Eliminar esta reserva?")) {
+        await db.collection("reservas").doc(id).delete();
+        cargarReservas();
+      }
+    }
+
+    async function eliminarAntiguas() {
+      const hoy = new Date().toISOString().split("T")[0];
+      const snapshot = await db.collection("reservas").get();
+
+      const batch = db.batch();
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.fecha < hoy) {
+          batch.delete(doc.ref);
+        }
+      });
+
+      await batch.commit();
+      alert("Reservas anteriores a hoy eliminadas.");
+      cargarReservas();
+    }
+
+    window.onload = cargarReservas;
+  </script>
+</body>
+</html>
