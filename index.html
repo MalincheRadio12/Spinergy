@@ -171,15 +171,26 @@
         </div>
       </section>
       
-     <!-- EXPERIENCIA DESTACADA / PUBLICIDAD -->
+    <!-- EXPERIENCIA DESTACADA / PUBLICIDAD -->
 <section class="section class bg-dark has-bg-image" id="class" aria-label="promocion"
 style="background-image: url('.assets/images/classes-bg.jpeg')">
 <div class="container text-center">
   <p class="section-subtitle">¡Vive la Experiencia!</p>
   <h2 class="h2 section-title text-center">Spinergy hacemos tu experiencia fitness inolvidable</h2>
 
-  <div style="max-width: 600px; margin: 0 auto;">
-    <div class="carousel" style="border-radius: 16px; overflow: hidden; margin-bottom: 30px;">
+  <!-- Contenedor principal con video y carrusel -->
+  <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px;">
+    
+    <!-- Video que se reproduce automáticamente -->
+    <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+      <video autoplay muted loop playsinline style="width: 100%; display: block;">
+        <source src="./assets/aniversario.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+      </video>
+    </div>
+
+    <!-- Carrusel de imágenes (existente) -->
+    <div class="carousel" style="border-radius: 16px; overflow: hidden;">
       <div class="carousel-track">
         <img src="./assets/images/2.png" alt="Imagen 1">
         <img src="./assets/images/3.png" alt="Imagen 2">
@@ -189,18 +200,19 @@ style="background-image: url('.assets/images/classes-bg.jpeg')">
         <img src="./assets/images/6.png" alt="Imagen 6">
       </div>
     </div>
-    
 
-    <p class="section-text" style="font-size: 1.8rem; color: #ccc;">
-      Luces, música y energía. Ven a nuestras sesiones de spin California style y transforma tu vida.
-    </p>
-
-    <p class="section-text" style="font-size: 1.6rem; color: var(--coquelicot); font-weight: bold; margin-top: 15px;">
-      🚴‍♀️ ¡Cupo limitado cada semana!
-    </p>
   </div>
+
+  <p class="section-text" style="font-size: 1.8rem; color: #ccc; margin-top: 20px;">
+    Luces, música y energía. Ven a nuestras sesiones de spin California style y transforma tu vida.
+  </p>
+
+  <p class="section-text" style="font-size: 1.6rem; color: var(--coquelicot); font-weight: bold; margin-top: 15px;">
+    🚴‍♀️ ¡Cupo limitado cada semana!
+  </p>
 </div>
 </section>
+
 
 <!-- SECCIÓN HORARIOS -->
 <section class="section horarios bg-dark has-bg-image" id="horarios" aria-label="horarios"
