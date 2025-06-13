@@ -75,10 +75,12 @@
   <h1>Administración de Reservas Spinergy</h1>
 
   <div class="filter">
-    <label>Filtrar por fecha:</label>
-    <input type="date" id="filtroFecha">
-    <button onclick="cargarReservas()">Buscar</button>
-  </div>
+  <label>Filtrar por fecha:</label>
+  <input type="date" id="filtroFecha">
+  <label>y hora:</label>
+  <input type="text" id="filtroHora" placeholder="Ej. 06:00am, 08:00am, 07:00pm">
+  <button onclick="cargarReservas()">Buscar</button>
+</div>
 
   <table id="tablaReservas">
     <thead>
@@ -115,9 +117,18 @@
     const db = firebase.firestore();
 
     async function cargarReservas() {
-      const fechaFiltro = document.getElementById("filtroFecha").value;
-      let query = db.collection("reservas");
-      if (fechaFiltro) query = query.where("fecha", "==", fechaFiltro);
+   const fechaFiltro = document.getElementById("filtroFecha").value;
+   const horaFiltro = document.getElementById("filtroHora").value.trim();
+   let query = db.collection("reservas");
+
+if (fechaFiltro) {
+  query = query.where("fecha", "==", fechaFiltro);
+}
+
+if (horaFiltro) {
+  query = query.where("hora", "==", horaFiltro);
+}
+
 
       const snapshot = await query.get();
       const tbody = document.querySelector("#tablaReservas tbody");
