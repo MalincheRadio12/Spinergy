@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spinergy</title>
   <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon-16x16.png">
+<link rel="apple-touch-icon" href="./assets/images/apple-touch-icon.png">
 
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/images/1.png">
@@ -37,43 +40,46 @@
 <body id="top">
 
   <!-- HEADER -->
-  <header class="header" data-header>
-    <div class="container">
+<header class="header" data-header>
+  <div class="container">
 
-      <a href="#" class="logo">
-        <img src="./assets/images/logo.jpeg" width="90" height="45" loading="lazy" alt="Instructor" style="border-radius: 10px;">
-      </a>
+    <a href="#" class="logo">
+      <img src="./assets/images/logo.png" width="35" height="35" loading="lazy" alt="Spinergy Logo" style="border-radius: 10px; transition: all 0.3s ease;">
+    </a>
 
-      <nav class="navbar" data-navbar>
-        <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
-          <ion-icon name="close-sharp" aria-hidden="true"></ion-icon>
-        </button>
-
-        <ul class="navbar-list">
-          <li>
-            <a href="#home" class="navbar-link active" data-nav-link>Inicio</a>
-          </li>
-          <li>
-            <a href="#about" class="navbar-link" data-nav-link>Nosotros</a>
-          </li>
-          <li>
-            <a href="#horarios" class="navbar-link" data-nav-link>Horarios</a>
-          </li>
-          <li>
-            <a href="#contacto" class="navbar-link" data-nav-link>Contacto</a>
-          </li>
-        </ul>
-      </nav>
-
-      <a href="https://wa.me/5212411128862" class="btn btn-secondary">Únete Ahora</a>
-
-      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
+    <nav class="navbar" data-navbar>
+      <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+        <ion-icon name="close-sharp" aria-hidden="true"></ion-icon>
       </button>
-    </div>
-  </header>
+
+      <ul class="navbar-list">
+        <li>
+          <a href="#home" class="navbar-link active" data-nav-link>Inicio</a>
+        </li>
+        <li>
+          <a href="#about" class="navbar-link" data-nav-link>Nosotros</a>
+        </li>
+        <li>
+          <a href="#horarios" class="navbar-link" data-nav-link>Horarios</a>
+        </li>
+        <li>
+          <a href="#reserva" class="navbar-link" data-nav-link>Reservar</a>
+        </li>
+        <li>
+          <a href="#contacto" class="navbar-link" data-nav-link>Contacto</a>
+        </li>
+      </ul>
+    </nav>
+
+    <a href="https://wa.me/5212411128862" class="btn btn-secondary">Únete Ahora</a>
+
+    <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+  </div>
+</header>
 
   <main>
     <article>
@@ -107,7 +113,8 @@
       </section>
 
       <!-- ABOUT SECTION -->
-      <section class="section about" id="about" aria-label="about" style="background-color: #828282;">
+      <!-- ABOUT SECTION -->
+       <section class="section about" id="about" aria-label="about" style="background-color: #828282; background-image: url('./assets/images/classes-bg.png'); background-size: cover; background-position: center; background-blend-mode: overlay;">
         <div class="container">
           <div class="about-banner has-after">
             <img src="./assets/images/about-banner.png" width="660" height="648" loading="lazy" alt="Clase de Spinergy"
@@ -122,7 +129,7 @@
 
           <div class="about-content">
             <p class="section-subtitle" >Nosotros</p>
-            <h2 class="h2 section-title">Bienvenido a Spinergy</h2>
+            <h2 class="h2 section-title" style="color: #ffffff">Bienvenido a Spinergy </h2>
             <p class="section-text" style="color: black;">
               Spinergy es un estudio de spin, donde el ejercicio se convierte en diversión. Nuestro exclusivo California style esta diseñado para trabajar todo el cuerpo, piernas, glúteos, espalda, brazos y abdomen. 
             </p>
@@ -145,6 +152,82 @@
           </div>
         </div>
       </section>
+
+      <!-- ===== GALERÍA DE IMÁGENES ===== -->
+<div class="galeria-container" id="about" aria-label="about" style="background-color: #828282; background-image: url('./assets/images/classes-bg.png'); background-size: cover; background-position: center; background-blend-mode: overlay;">>
+
+  <p class="section-subtitle" style="margin-inline: auto;">Galería</p>
+  <h2 class="h2 section-title" style="color: #ffffff; text-align: center;">Conoce nuestro estudio, la energía y la pasión por el spinning</h2>
+
+  <!-- APARTADO 1: 9 IMÁGENES VERTICALES -->
+  <div class="galeria-apartado">
+    <h3 class="h3" style="color: var(--coquelicot); margin-bottom: 25px; font-weight: 700; display: flex; align-items: center; gap: 12px; justify-content: center;">
+      <span style="background: var(--coquelicot); width: 4px; height: 30px; display: inline-block; border-radius: 4px;"></span>
+      Capturando la energía
+      
+    </h3>
+    <div class="galeria-grid grid-vertical">
+      <div class="galeria-item vertical">
+        <img src="assets/images/galeria/vertical-1.jpeg" alt="Vertical 1" loading="lazy">
+      </div>
+      <div class="galeria-item vertical">
+        <img src="assets/images/galeria/vertical-2.jpeg" alt="Vertical 2" loading="lazy">
+      </div>
+      <div class="galeria-item vertical">
+        <img src="assets/images/galeria/vertical-3.jpeg" alt="Vertical 3" loading="lazy">
+      </div>
+      <div class="galeria-item vertical">
+        <img src="assets/images/galeria/vertical-4.jpeg" alt="Vertical 4" loading="lazy">
+      </div>
+      <div class="galeria-item vertical">
+        <img src="assets/images/galeria/vertical-5.jpeg" alt="Vertical 5" loading="lazy">
+      </div>
+      <div class="galeria-item vertical">
+        <img src="assets/images/galeria/vertical-6.jpeg" alt="Vertical 6" loading="lazy">
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- APARTADO 2: 9 IMÁGENES HORIZONTALES -->
+  <div class="galeria-apartado" style="margin-top: 60px;">
+    <h3 class="h3" style="color: var(--coquelicot); margin-bottom: 25px; font-weight: 700; display: flex; align-items: center; gap: 12px; justify-content: center;">
+      <span style="background: var(--coquelicot); width: 4px; height: 30px; display: inline-block; border-radius: 4px;"></span>
+      Momentos que inspiran
+     
+    </h3>
+    <div class="galeria-grid grid-horizontal">
+      <div class="galeria-item horizontal">
+        <img src="assets/images/galeria/horizontal-1.jpeg" alt="Horizontal 1" loading="lazy">
+      </div>
+      <div class="galeria-item horizontal">
+        <img src="assets/images/galeria/horizontal-2.jpeg" alt="Horizontal 2" loading="lazy">
+      </div>
+      <div class="galeria-item horizontal">
+        <img src="assets/images/galeria/horizontal-3.jpeg" alt="Horizontal 3" loading="lazy">
+      </div>
+      <div class="galeria-item horizontal">
+        <img src="assets/images/galeria/horizontal-4.jpeg" alt="Horizontal 4" loading="lazy">
+      </div>
+      <div class="galeria-item horizontal">
+        <img src="assets/images/galeria/horizontal-5.jpeg" alt="Horizontal 5" loading="lazy">
+      </div>
+      <div class="galeria-item horizontal">
+        <img src="assets/images/galeria/horizontal-6.jpeg" alt="Horizontal 6" loading="lazy">
+      </div>
+      <div class="galeria-item horizontal">
+        <img src="assets/images/galeria/horizontal-7.jpeg" alt="Horizontal 7" loading="lazy">
+      </div>
+      <div class="galeria-item horizontal">
+        <img src="assets/images/galeria/horizontal-8.jpeg" alt="Horizontal 8" loading="lazy">
+      </div>
+      <div class="galeria-item horizontal">
+        <img src="assets/images/galeria/horizontal-9.jpeg" alt="Horizontal 9" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+</div>
 
       <!-- VIDEO SECTION -->
       <section class="section video" aria-label="video" style="background-color: #828282;">
@@ -173,7 +256,7 @@
       
     <!-- EXPERIENCIA DESTACADA / PUBLICIDAD -->
 <section class="section class bg-dark has-bg-image" id="class" aria-label="promocion"
-style="background-image: url('.assets/images/classes-bg.jpeg')">
+style="background-image: url('./assets/images/classes-bg.png')">
 <div class="container text-center">
   <p class="section-subtitle">¡Vive la Experiencia!</p>
   <h2 class="h2 section-title text-center">Spinergy hacemos tu experiencia fitness inolvidable</h2>
@@ -182,30 +265,44 @@ style="background-image: url('.assets/images/classes-bg.jpeg')">
   <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px;">
     
     <!-- Video que se reproduce automáticamente -->
-    <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
-      <video autoplay muted loop playsinline style="width: 100%; display: block;">
-        <source src="./assets/aniversario.mp4" type="video/mp4">
-        Tu navegador no soporta el video.
-      </video>
-    </div>
-
+<div style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3); max-width: 600px; margin: 0 auto;">
+  <video autoplay muted loop playsinline style="width: 100%; display: block;">
+    <source src="./assets/aniversario.mp4" type="video/mp4">
+    Tu navegador no soporta el video.
+  </video>
+</div>
     <!-- Carrusel de imágenes (existente) -->
-    <div class="carousel" style="border-radius: 16px; overflow: hidden;">
-      <div class="carousel-track">
-        <img src="./assets/images/2.png" alt="Imagen 1">
-        <img src="./assets/images/3.png" alt="Imagen 2">
-        <img src="./assets/images/4.png" alt="Imagen 3">
-        <img src="./assets/images/5.png" alt="Imagen 4">
-        <img src="./assets/images/6.png" alt="Imagen 5">
-        <img src="./assets/images/6.png" alt="Imagen 6">
+    <div class="carousel">
+      <div class="carousel-wrapper">
+        <p class="section-text" style="font-size: 1.8rem; color: #ccc; margin-top: 20px;">
+          Luces, música y energía. Ven a nuestras sesiones de spin California style y transforma tu vida.
+        </p>
+
+        <div class="carousel-track" id="carouselTrack">
+
+          <div class="carousel-slide">
+            <img src="assets/images/publicidad/2.png" alt="Imagen 1">
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/publicidad/3.png" alt="Imagen 2">
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/publicidad/4.png" alt="Imagen 3">
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/publicidad/5.png" alt="Imagen 4">
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/publicidad/6.png" alt="Imagen 5">
+          </div>
+          <div class="carousel-slide">
+            <img src="assets/images/publicidad/7.png" alt="Imagen 6">
+          </div>
+        </div>
       </div>
+      <!-- Puntos indicadores -->
+      <div class="carousel-dots" id="carouselDots"></div>
     </div>
-
-  </div>
-
-  <p class="section-text" style="font-size: 1.8rem; color: #ccc; margin-top: 20px;">
-    Luces, música y energía. Ven a nuestras sesiones de spin California style y transforma tu vida.
-  </p>
 
   <p class="section-text" style="font-size: 1.6rem; color: var(--coquelicot); font-weight: bold; margin-top: 15px;">
     🚴‍♀️ ¡Cupo limitado cada semana!
@@ -216,7 +313,7 @@ style="background-image: url('.assets/images/classes-bg.jpeg')">
 
 <!-- SECCIÓN HORARIOS -->
 <section class="section horarios bg-dark has-bg-image" id="horarios" aria-label="horarios"
-  style="background-image: url('./assets/images/classes-bg.png'); padding-top: 40px; padding-bottom: 40px;">
+style="background-image: url('./assets/images/classes-bg.png')">
   <div class="container text-center">
     <div class="titulo-horarios">
       <p class="section-subtitle text-center">Horarios Disponibles</p>
