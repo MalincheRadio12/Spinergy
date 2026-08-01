@@ -53,6 +53,97 @@ window.addEventListener("scroll", function () {
   }
 });
 
+// ===== CARRUSEL DE 3 IMÁGENES CUADRADAS =====
+document.addEventListener('DOMContentLoaded', function() {
+  const track = document.getElementById('carouselTrack');
+  const dotsContainer = document.getElementById('carouselDots');
+  
+  if (!track || !dotsContainer) return;
+  
+  const slides = track.querySelectorAll('.carousel-slide');
+  const totalSlides = slides.length;
+  let currentIndex = 0;
+  let autoPlayInterval;
+  
+  // Calcular cuántos grupos de 3 hay
+  const totalGroups = Math.ceil(totalSlides / 3);
+  
+  // Crear puntos (uno por grupo de 3 imágenes)
+  for (let i = 0; i < totalGroups; i++) {
+    const dot = document.createElement('button');
+    dot.classList.add('carousel-dot');
+    if (i === 0) dot.classList.add('active');
+    dot.dataset.index = i;
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  }
+  
+  function getSlidesPerView() {
+    const width = window.innerWidth;
+    if (width > 992) return 3;
+    if (width > 600) return 2;
+    return 1;
+  }
+  
+  function goToSlide(index) {
+    const slidesPerView = getSlidesPerView();
+    const slideWidth = track.querySelector('.carousel-slide').offsetWidth;
+    const gap = parseInt(getComputedStyle(track).gap) || 20;
+    
+    // Calcular el desplazamiento
+    const offset = index * (slideWidth + gap) * slidesPerView;
+    
+    track.style.transform = `translateX(-${offset}px)`;
+    currentIndex = index;
+    
+    // Actualizar puntos
+    document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+  
+  function nextSlide() {
+    const totalGroups = Math.ceil(totalSlides / getSlidesPerView());
+    let nextIndex = currentIndex + 1;
+    
+    if (nextIndex >= totalGroups) {
+      nextIndex = 0;
+    }
+    
+    goToSlide(nextIndex);
+  }
+  
+  function startAutoPlay() {
+    autoPlayInterval = setInterval(nextSlide, 4000);
+  }
+  
+  function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+  }
+  
+  // Pausar al hacer hover
+  const carousel = document.querySelector('.carousel');
+  carousel.addEventListener('mouseenter', stopAutoPlay);
+  carousel.addEventListener('mouseleave', startAutoPlay);
+  
+  // Recalcular al cambiar tamaño
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      stopAutoPlay();
+      goToSlide(currentIndex);
+      startAutoPlay();
+    }, 300);
+  });
+  
+  // Inicializar
+  setTimeout(() => {
+    goToSlide(0);
+    startAutoPlay();
+  }, 100);
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const fechaInput = document.getElementById("fecha");
