@@ -396,7 +396,7 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Botón de menú hamburguesa */
+/* ===== BOTÓN HAMBURGUESA ===== */
 .nav-open-btn {
   background: transparent;
   padding: 8px 8px !important;
@@ -406,21 +406,59 @@ body {
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   z-index: 1001;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-open-btn .line {
   background-color: #ffffff;
   width: 22px !important;
-  height: 2px;
+  height: 2.5px;
   border-radius: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center;
 }
 
 .nav-open-btn .line:nth-child(2) {
   width: 16px !important;
   margin-inline-start: auto;
+}
+
+/* ===== ANIMACIÓN DEL BOTÓN HAMBURGUESA ===== */
+/* Cuando el menú está activo, el botón gira 90° */
+.nav-open-btn.active {
+  transform: rotate(90deg);
+}
+
+.nav-open-btn.active .line {
+  background-color: #f0c040;
+}
+
+.nav-open-btn.active .line:nth-child(2) {
+  width: 22px !important;
+  margin-inline-start: 0;
+}
+
+/* Efecto hover en el botón */
+.nav-open-btn:hover .line {
+  background-color: #f0c040;
+}
+
+.nav-open-btn.active:hover .line {
+  background-color: #ff6b6b;
+}
+
+/* Efecto de pulsación al hacer clic */
+.nav-open-btn:active {
+  transform: scale(0.92);
+}
+
+.nav-open-btn.active:active {
+  transform: rotate(90deg) scale(0.92);
 }
 
 /* ===== MENÚ DESPLEGABLE PARA MÓVIL ===== */
@@ -448,31 +486,55 @@ body {
 .navbar.active {
   visibility: visible;
   opacity: 1;
+  animation: menuFadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-/* Botón cerrar */
-.nav-close-btn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  font-size: 28px;
-  padding: 10px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  cursor: pointer;
-  transition: all 0.4s ease;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.navbar:not(.active) {
+  animation: menuFadeOut 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.nav-close-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: rotate(90deg);
+@keyframes menuFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    visibility: visible;
+  }
+}
+
+@keyframes menuFadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+    visibility: hidden;
+  }
+}
+
+/* Fondo oscuro cuando el menú está abierto */
+.navbar.active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+  animation: overlayFadeIn 0.5s ease forwards;
+}
+
+@keyframes overlayFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* Enlaces del menú */
@@ -557,7 +619,7 @@ body {
 
 /* ===== RESPONSIVE ===== */
 
-/* Ocultar menú en PC - Mostrar enlaces horizontales */
+/* PC - Mostrar enlaces horizontales */
 @media (min-width: 992px) {
   .navbar {
     position: static;
@@ -573,10 +635,11 @@ body {
     padding: 0;
     z-index: auto;
     pointer-events: all;
+    animation: none !important;
   }
 
-  .nav-close-btn {
-    display: none !important;
+  .navbar:not(.active) {
+    animation: none !important;
   }
 
   .nav-open-btn {
@@ -604,9 +667,13 @@ body {
     animation: none;
     opacity: 1;
   }
+
+  .navbar.active::before {
+    display: none;
+  }
 }
 
-/* Ajustes para tablets */
+/* Tablets */
 @media (max-width: 991px) {
   .header > .container {
     padding-inline: 15px;
@@ -626,7 +693,7 @@ body {
   }
 }
 
-/* Ajustes para móviles pequeños */
+/* Móviles pequeños */
 @media (max-width: 480px) {
   .logo {
     font-size: 1.6rem !important;
@@ -2312,9 +2379,28 @@ body {
   align-items: center;
   padding-top: 80px;
   padding-bottom: 40px;
-  background-size: cover !important; /* Asegura que la imagen cubra todo */
-  background-position: center !important; /* Centra la imagen */
+  background-size: cover !important;
+  background-position: center !important;
   background-repeat: no-repeat !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 🔹 Fondo fijo para hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: inherit;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
 }
 
 .hero .container {
@@ -2323,6 +2409,8 @@ body {
   align-items: center;
   gap: 50px;
   min-height: calc(100vh - 100px);
+  position: relative;
+  z-index: 1;
 }
 
 /* About - ocupa toda la pantalla */
@@ -2331,9 +2419,28 @@ body {
   min-height: 100dvh;
   display: flex;
   align-items: center;
-  background-size: cover !important; /* Asegura que la imagen cubra todo */
-  background-position: center !important; /* Centra la imagen */
+  background-size: cover !important;
+  background-position: center !important;
   background-repeat: no-repeat !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 🔹 Fondo fijo para about */
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: inherit;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
 }
 
 .about .container {
@@ -2342,6 +2449,8 @@ body {
   align-items: center;
   gap: 50px;
   min-height: calc(100vh - 100px);
+  position: relative;
+  z-index: 1;
 }
 
 /* Para móviles */
@@ -2357,12 +2466,18 @@ body {
   .hero {
     min-height: auto;
     padding: 120px 0 60px;
+  }
+  
+  .hero::before {
     background-size: cover !important;
   }
   
   .about {
     min-height: auto;
     padding: 60px 0;
+  }
+  
+  .about::before {
     background-size: cover !important;
   }
 }
