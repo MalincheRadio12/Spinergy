@@ -1,11 +1,8 @@
 'use strict';
 
-
-
 /**
  * add event on element
  */
-
 const addEventOnElem = function (elem, type, callback) {
   if (elem.length > 1) {
     for (let i = 0; i < elem.length; i++) {
@@ -16,30 +13,36 @@ const addEventOnElem = function (elem, type, callback) {
   }
 }
 
-
-
 /**
- * navbar toggle
+ * ==========================================
+ * NAVBAR - UN SOLO BOTÓN PARA ABRIR/CERRAR
+ * ==========================================
  */
-
 const navbar = document.querySelector("[data-navbar]");
-const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+const navToggler = document.querySelector("[data-nav-toggler]");
 const navLinks = document.querySelectorAll("[data-nav-link]");
 
-const toggleNavbar = function () { navbar.classList.toggle("active"); }
+// 🔹 EL MISMO BOTÓN HAMBURGUESA alterna (abre/cierra)
+if (navToggler) {
+  navToggler.addEventListener("click", function() {
+    navbar.classList.toggle("active");
+    // 👇 Activa la animación del botón (gira 90°)
+    this.classList.toggle("active");
+  });
+}
 
-addEventOnElem(navTogglers, "click", toggleNavbar);
-
-const closeNavbar = function () { navbar.classList.remove("active"); }
-
-addEventOnElem(navLinks, "click", closeNavbar);
-
-
+// 🔹 Los enlaces del menú cierran al hacer clic
+addEventOnElem(navLinks, "click", function() {
+  navbar.classList.remove("active");
+  // 👇 También remueve la clase "active" del botón
+  navToggler.classList.remove("active");
+});
 
 /**
- * header & back top btn active
+ * ==========================================
+ * HEADER & BACK TO TOP BTN
+ * ==========================================
  */
-
 const header = document.querySelector("[data-header]");
 const backTopBtn = document.querySelector("[data-back-top-btn]");
 
