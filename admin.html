@@ -3,173 +3,1034 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Panel de Administración</title>
+  <title>Panel de Administración - Spinergy</title>
   <link rel="manifest" href="./manifest.json">
   <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="shortcut icon" href="./assets/images/carril-bici.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <link rel="shortcut icon" href="./assets/images/carril-bici.png">
+  
   <style>
-    body {
-      background-color: #111;
-      color: white;
-      font-family: 'Rubik', sans-serif;
-      padding: 20px;
+    :root {
+      --primary-blue: #1e40af;
+      --primary-blue-dark: #1e3a8a;
+      --primary-blue-light: #dbeafe;
+      --success-green: #15803d;
+      --danger-red: #b91c1c;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-500: #6b7280;
+      --gray-700: #1f2937;
+      --gray-900: #000000;
+      --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 8px -1px rgb(0 0 0 / 0.15);
+      --shadow-lg: 0 10px 20px -3px rgb(0 0 0 / 0.2);
+      --radius: 16px;
     }
 
-    h1 {
-      color: var(--coquelicot);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--gray-50);
+      color: var(--gray-900);
+      font-family: 'Rubik', sans-serif;
+      font-size: 22px;
+      padding: 0;
+      min-height: 100vh;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    /* Header */
+    .admin-header {
+      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+      color: white;
+      padding: 32px 40px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .admin-header-content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .admin-header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .admin-header h1 ion-icon {
+      font-size: 2.75rem;
+    }
+
+    .admin-header-stats {
+      display: flex;
+      gap: 24px;
+    }
+
+    .stat-item {
       text-align: center;
-      margin-bottom: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 16px 32px;
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
+      min-width: 160px;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .stat-item .stat-value {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .stat-item .stat-label {
+      font-size: 1.1rem;
+      opacity: 1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 6px;
+      font-weight: 700;
+    }
+
+    /* Container */
+    .admin-container {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--gray-200);
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 28px 32px;
+      border-bottom: 2px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      background: var(--gray-50);
+    }
+
+    .card-header h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--gray-900);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .card-header h2 ion-icon {
+      color: var(--primary-blue);
+      font-size: 2rem;
+    }
+
+    .card-body {
+      padding: 32px;
+    }
+
+    /* Filters */
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      align-items: end;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .filter-group label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .filter-group input,
+    .filter-group select {
+      padding: 18px 20px;
+      border: 3px solid var(--gray-300);
+      border-radius: 12px;
+      font-size: 1.25rem;
+      font-family: inherit;
+      font-weight: 600;
+      transition: all 0.2s;
+      background: white;
+      color: var(--gray-900);
+      width: 100%;
+    }
+
+    .filter-group input:focus,
+    .filter-group select:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 5px var(--primary-blue-light);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 28px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn ion-icon {
+      font-size: 1.6rem;
+    }
+
+    .btn-primary {
+      background: var(--primary-blue);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-blue-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-danger {
+      background: var(--danger-red);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #991b1b;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: white;
+      color: var(--primary-blue);
+      border: 3px solid var(--primary-blue);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-blue-light);
+    }
+
+    .btn-sm {
+      padding: 14px 22px;
+      font-size: 1.15rem;
+    }
+
+    /* Table */
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 2px solid var(--gray-200);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 30px;
+      font-size: 1.3rem;
     }
 
-    th, td {
-      padding: 12px;
-      border: 1px solid #444;
-      text-align: center;
+    thead {
+      background: var(--primary-blue);
     }
 
     th {
-      background-color: var(--coquelicot);
+      padding: 22px 24px;
+      text-align: left;
+      font-weight: 800;
       color: white;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px solid var(--primary-blue-dark);
+      white-space: nowrap;
     }
 
-    button {
-      padding: 8px 14px;
-      background: crimson;
-      border: none;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
+    td {
+      padding: 22px 24px;
+      border-bottom: 2px solid var(--gray-100);
+      color: var(--gray-900);
+      vertical-align: middle;
+      font-size: 1.3rem;
+      font-weight: 500;
     }
 
-    .filter {
+    tbody tr {
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover {
+      background: var(--primary-blue-light);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    td strong {
+      font-weight: 700;
+      font-size: 1.35rem;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      border-radius: 28px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .badge ion-icon {
+      font-size: 1.35rem;
+    }
+
+    .badge-blue {
+      background: var(--primary-blue-light);
+      color: var(--primary-blue-dark);
+      border: 2px solid var(--primary-blue);
+    }
+
+    .badge-green {
+      background: #dcfce7;
+      color: var(--success-green);
+      border: 2px solid var(--success-green);
+    }
+
+    .badge-gray {
+      background: var(--gray-100);
+      color: var(--gray-900);
+      border: 2px solid var(--gray-300);
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--gray-700);
+    }
+
+    .empty-state ion-icon {
+      font-size: 5rem;
+      color: var(--gray-300);
       margin-bottom: 20px;
-      text-align: center;
-      color: white;
     }
 
-    .filter input {
-      padding: 8px;
-      border-radius: 8px;
-      border: none;
-      margin: 0 10px;
-      color: white;
+    .empty-state p {
+      font-size: 1.4rem;
+      font-weight: 600;
     }
 
-    .delete-old {
+    /* Loading */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      color: var(--gray-700);
+      gap: 16px;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 5px solid var(--gray-200);
+      border-top-color: var(--primary-blue);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Actions bar */
+    .actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--gray-900);
+      color: white;
+      padding: 22px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      transform: translateY(150px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .toast ion-icon {
+      font-size: 2rem;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: var(--success-green);
+    }
+
+    .toast.error {
+      background: var(--danger-red);
+    }
+
+    /* Filter chips */
+    .filter-chips {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
       margin-top: 20px;
-      text-align: center;
     }
 
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--primary-blue-light);
+      color: var(--primary-blue-dark);
+      border-radius: 28px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: 2px solid var(--primary-blue);
+    }
+
+    .chip button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--primary-blue-dark);
+      display: flex;
+      align-items: center;
+      padding: 0;
+      font-size: 1.8rem;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .chip button:hover {
+      color: var(--danger-red);
+    }
+
+    /* Export section */
+    .export-section {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      body {
+        font-size: 19px;
+      }
+
+      .admin-header {
+        padding: 24px 20px;
+      }
+
+      .admin-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .admin-header h1 ion-icon {
+        font-size: 2rem;
+      }
+
+      .admin-header-stats {
+        width: 100%;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .stat-item {
+        padding: 14px 16px;
+        flex: 1;
+        min-width: auto;
+      }
+
+      .stat-item .stat-value {
+        font-size: 2rem;
+      }
+
+      .stat-item .stat-label {
+        font-size: 0.9rem;
+      }
+
+      .admin-container {
+        padding: 20px;
+      }
+
+      .card-header {
+        padding: 20px;
+      }
+
+      .card-header h2 {
+        font-size: 1.5rem;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .filters-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-group label {
+        font-size: 1.1rem;
+      }
+
+      .filter-group input,
+      .filter-group select {
+        padding: 16px;
+        font-size: 1.1rem;
+      }
+
+      table {
+        font-size: 1.1rem;
+      }
+
+      th {
+        padding: 16px 14px;
+        font-size: 0.95rem;
+      }
+
+      td {
+        padding: 16px 14px;
+        font-size: 1.1rem;
+      }
+
+      td strong {
+        font-size: 1.15rem;
+      }
+
+      .btn {
+        padding: 16px 20px;
+        font-size: 1.1rem;
+      }
+
+      .badge {
+        font-size: 1rem;
+        padding: 8px 14px;
+      }
+
+      .actions-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .actions-bar .btn {
+        width: 100%;
+      }
+
+      .export-section {
+        width: 100%;
+      }
+
+      .export-section .btn {
+        flex: 1;
+      }
+
+      .toast {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        font-size: 1.1rem;
+        padding: 18px 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .admin-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .stat-item .stat-value {
+        font-size: 1.75rem;
+      }
+
+      .stat-item .stat-label {
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+      }
+
+      table {
+        font-size: 1rem;
+      }
+
+      td, th {
+        padding: 14px 10px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Administración de Reservas Spinergy</h1>
 
-  <div class="filter">
-  <label>Filtrar por fecha:</label>
-  <input type="date" id="filtroFecha">
-  <label>y hora:</label>
-  <input type="text" id="filtroHora" placeholder="Ej. 06:00am, 08:00am, 07:00pm">
-  <button onclick="cargarReservas()">Buscar</button>
-</div>
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="admin-header-content">
+      <h1>
+        <ion-icon name="settings-sharp"></ion-icon>
+        Panel de Administración
+      </h1>
+    </div>
+    <div class="admin-header-stats">
+      <div class="stat-item">
+        <div class="stat-value" id="totalReservas">0</div>
+        <div class="stat-label">Total Reservas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="reservasHoy">0</div>
+        <div class="stat-label">Hoy</div>
+      </div>
+    </div>
+  </header>
 
-  <table id="tablaReservas">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Fecha</th>
-        <th>Hora</th>
-        <th>Bicicleta</th>
-        <th>Eliminar</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <div class="admin-container">
 
-  <div class="delete-old">
-    <button onclick="eliminarAntiguas()">Eliminar Reservas Anteriores a Hoy</button>
+    <!-- Filtros -->
+    <div class="card">
+      <div class="card-header">
+        <h2>
+          <ion-icon name="search-sharp"></ion-icon>
+          Buscar Reservas
+        </h2>
+      </div>
+      <div class="card-body">
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label for="filtroFecha">Fecha</label>
+            <input type="date" id="filtroFecha">
+          </div>
+          <div class="filter-group">
+            <label for="filtroHora">Horario</label>
+            <select id="filtroHora">
+              <option value="">Todos los horarios</option>
+              <option value="06:00am">06:00 am</option>
+              <option value="08:20am">09:00 am</option>
+              <option value="07:30pm">07:30 am</option>
+              <option value="06:00pm">06:00 pm</option>
+              <option value="07:30pm">07:30 pm</option>
+              <option value="08:00am">Sábado 08:00 am</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filtroNombre">Nombre</label>
+            <input type="text" id="filtroNombre" placeholder="Buscar por nombre...">
+          </div>
+          <div class="filter-group">
+            <button class="btn btn-primary" onclick="cargarReservas()">
+              <ion-icon name="search-sharp"></ion-icon>
+              Buscar
+            </button>
+          </div>
+        </div>
+        <div class="filter-chips" id="filterChips"></div>
+      </div>
+    </div>
+
+    <!-- Tabla de reservas -->
+    <div class="card">
+      <div class="card-header">
+        <h2>
+          <ion-icon name="list-sharp"></ion-icon>
+          Reservas
+        </h2>
+        <div class="export-section">
+          <button class="btn btn-outline btn-sm" onclick="exportarCSV()">
+            <ion-icon name="download-sharp"></ion-icon>
+            Exportar CSV
+          </button>
+          <button class="btn btn-outline btn-sm" onclick="cargarReservas()">
+            <ion-icon name="refresh-sharp"></ion-icon>
+            Actualizar
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-container">
+          <table id="tablaReservas">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Bicicleta</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyReservas">
+              <tr>
+                <td colspan="6">
+                  <div class="loading">
+                    <div class="spinner"></div>
+                    Cargando reservas...
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="actions-bar">
+          <button class="btn btn-danger" onclick="eliminarAntiguas()">
+            <ion-icon name="trash-sharp"></ion-icon>
+            Eliminar reservas anteriores a hoy
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <script src="./script.js"></script>
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <ion-icon name="checkmark-circle-sharp"></ion-icon>
+    <span id="toastMessage">Operación exitosa</span>
+  </div>
 
   <script>
     const firebaseConfig = {
-  apiKey: "AIzaSyBwvzm9sMuUA60M712aYAUUBPzokUEtm2o",
-  authDomain: "spinergy-reservas.firebaseapp.com",
-  projectId: "spinergy-reservas",
-  storageBucket: "spinergy-reservas.firebasestorage.app",
-  messagingSenderId: "596504452641",
-  appId: "1:596504452641:web:e5298dd2296be6156c8d60",
-  measurementId: "G-WRHZ15BCKN"
-};
+      apiKey: "AIzaSyBwvzm9sMuUA60M712aYAUUBPzokUEtm2o",
+      authDomain: "spinergy-reservas.firebaseapp.com",
+      projectId: "spinergy-reservas",
+      storageBucket: "spinergy-reservas.firebasestorage.app",
+      messagingSenderId: "596504452641",
+      appId: "1:596504452641:web:e5298dd2296be6156c8d60",
+      measurementId: "G-WRHZ15BCKN"
+    };
+
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
+    let reservasActuales = [];
+
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const icon = toast.querySelector('ion-icon');
+      
+      toastMessage.textContent = message;
+      toast.className = 'toast show ' + type;
+      
+      if (type === 'success') {
+        icon.setAttribute('name', 'checkmark-circle-sharp');
+      } else if (type === 'error') {
+        icon.setAttribute('name', 'close-circle-sharp');
+      }
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
     async function cargarReservas() {
-   const fechaFiltro = document.getElementById("filtroFecha").value;
-   const horaFiltro = document.getElementById("filtroHora").value.trim();
-   let query = db.collection("reservas");
+      const fechaFiltro = document.getElementById("filtroFecha").value;
+      const horaFiltro = document.getElementById("filtroHora").value;
+      const nombreFiltro = document.getElementById("filtroNombre").value.trim().toLowerCase();
 
-if (fechaFiltro) {
-  query = query.where("fecha", "==", fechaFiltro);
-}
+      const tbody = document.getElementById("tbodyReservas");
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6">
+            <div class="loading">
+              <div class="spinner"></div>
+              Cargando reservas...
+            </div>
+          </td>
+        </tr>
+      `;
 
-if (horaFiltro) {
-  query = query.where("hora", "==", horaFiltro);
-}
+      try {
+        let query = db.collection("reservas");
 
+        if (fechaFiltro) {
+          query = query.where("fecha", "==", fechaFiltro);
+        }
 
-      const snapshot = await query.get();
-      const tbody = document.querySelector("#tablaReservas tbody");
-      tbody.innerHTML = "";
+        if (horaFiltro) {
+          query = query.where("hora", "==", horaFiltro);
+        }
 
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${data.nombre}</td>
-          <td>${data.fecha}</td>
-          <td>${data.hora}</td>
-          <td>#${data.bicicleta}</td>
-          <td><button onclick="eliminarReserva('${doc.id}')">Eliminar</button></td>
+        const snapshot = await query.get();
+        let reservas = [];
+
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          if (nombreFiltro && !data.nombre.toLowerCase().includes(nombreFiltro)) {
+            return;
+          }
+          reservas.push({ id: doc.id, ...data });
+        });
+
+        reservas.sort((a, b) => {
+          const fechaCompare = a.fecha.localeCompare(b.fecha);
+          if (fechaCompare !== 0) return fechaCompare;
+          return a.hora.localeCompare(b.hora);
+        });
+
+        reservasActuales = reservas;
+        renderReservas(reservas);
+        actualizarEstadisticas(reservas);
+        renderFilterChips(fechaFiltro, horaFiltro, nombreFiltro);
+
+      } catch (error) {
+        console.error("Error al cargar reservas:", error);
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6">
+              <div class="empty-state">
+                <ion-icon name="alert-circle-sharp"></ion-icon>
+                <p>Error al cargar las reservas. Intenta de nuevo.</p>
+              </div>
+            </td>
+          </tr>
         `;
-        tbody.appendChild(row);
-      });
+        showToast('Error al cargar reservas', 'error');
+      }
+    }
+
+    function renderReservas(reservas) {
+      const tbody = document.getElementById("tbodyReservas");
+
+      if (reservas.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6">
+              <div class="empty-state">
+                <ion-icon name="calendar-clear-sharp"></ion-icon>
+                <p>No se encontraron reservas con los filtros seleccionados.</p>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = reservas.map((reserva, index) => `
+        <tr>
+          <td><span class="badge badge-gray">${index + 1}</span></td>
+          <td>
+            <strong>${escapeHtml(reserva.nombre)}</strong>
+          </td>
+          <td>
+            <span class="badge badge-blue">
+              <ion-icon name="calendar-sharp"></ion-icon>
+              ${formatearFecha(reserva.fecha)}
+            </span>
+          </td>
+          <td>
+            <span class="badge badge-green">
+              <ion-icon name="time-sharp"></ion-icon>
+              ${escapeHtml(reserva.hora)}
+            </span>
+          </td>
+          <td>
+            <span class="badge badge-blue">
+              <ion-icon name="bicycle-sharp"></ion-icon>
+              #${escapeHtml(String(reserva.bicicleta))}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-danger btn-sm" onclick="eliminarReserva('${reserva.id}')">
+              <ion-icon name="trash-sharp"></ion-icon>
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function actualizarEstadisticas(reservas) {
+      const hoy = new Date().toISOString().split("T")[0];
+      const reservasHoy = reservas.filter(r => r.fecha === hoy).length;
+      
+      document.getElementById('totalReservas').textContent = reservas.length;
+      document.getElementById('reservasHoy').textContent = reservasHoy;
+    }
+
+    function renderFilterChips(fecha, hora, nombre) {
+      const container = document.getElementById('filterChips');
+      const chips = [];
+
+      if (fecha) {
+        chips.push(`<span class="chip">Fecha: ${formatearFecha(fecha)} <button onclick="limpiarFiltro('filtroFecha')">×</button></span>`);
+      }
+      if (hora) {
+        chips.push(`<span class="chip">Hora: ${hora} <button onclick="limpiarFiltro('filtroHora')">×</button></span>`);
+      }
+      if (nombre) {
+        chips.push(`<span class="chip">Nombre: ${nombre} <button onclick="limpiarFiltro('filtroNombre')">×</button></span>`);
+      }
+
+      container.innerHTML = chips.join('');
+    }
+
+    function limpiarFiltro(id) {
+      document.getElementById(id).value = '';
+      cargarReservas();
+    }
+
+    function formatearFecha(fechaStr) {
+      if (!fechaStr) return '';
+      const [year, month, day] = fechaStr.split('-');
+      const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+      return `${day} ${meses[parseInt(month) - 1]} ${year}`;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
     }
 
     async function eliminarReserva(id) {
-      if (confirm("¿Eliminar esta reserva?")) {
+      if (!confirm("¿Estás seguro de eliminar esta reserva?")) return;
+
+      try {
         await db.collection("reservas").doc(id).delete();
+        showToast('Reserva eliminada correctamente', 'success');
         cargarReservas();
+      } catch (error) {
+        console.error("Error al eliminar:", error);
+        showToast('Error al eliminar la reserva', 'error');
       }
     }
 
     async function eliminarAntiguas() {
       const hoy = new Date().toISOString().split("T")[0];
-      const snapshot = await db.collection("reservas").get();
+      
+      if (!confirm("¿Eliminar todas las reservas anteriores a hoy? Esta acción no se puede deshacer.")) return;
 
-      const batch = db.batch();
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        if (data.fecha < hoy) {
-          batch.delete(doc.ref);
+      try {
+        const snapshot = await db.collection("reservas").get();
+        const batch = db.batch();
+        let count = 0;
+
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          if (data.fecha < hoy) {
+            batch.delete(doc.ref);
+            count++;
+          }
+        });
+
+        if (count === 0) {
+          showToast('No hay reservas anteriores a hoy', 'success');
+          return;
         }
-      });
 
-      await batch.commit();
-      alert("Reservas anteriores a hoy eliminadas.");
-      cargarReservas();
+        await batch.commit();
+        showToast(`${count} reserva(s) eliminada(s) correctamente`, 'success');
+        cargarReservas();
+      } catch (error) {
+        console.error("Error al eliminar:", error);
+        showToast('Error al eliminar las reservas', 'error');
+      }
+    }
+
+    function exportarCSV() {
+      if (reservasActuales.length === 0) {
+        showToast('No hay reservas para exportar', 'error');
+        return;
+      }
+
+      const headers = ['Nombre', 'Fecha', 'Hora', 'Bicicleta'];
+      const rows = reservasActuales.map(r => [
+        r.nombre,
+        r.fecha,
+        r.hora,
+        r.bicicleta
+      ]);
+
+      const csvContent = [
+        headers.join(','),
+        ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+      ].join('\n');
+
+      const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `reservas_spinergy_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      showToast('CSV exportado correctamente', 'success');
     }
 
     window.onload = cargarReservas;
